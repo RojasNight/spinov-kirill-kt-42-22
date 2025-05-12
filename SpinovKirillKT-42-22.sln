@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpinovKirillKT-42-22", "SpinovKirillKT-42-22\SpinovKirillKT-42-22.csproj", "{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6187D3B4-BBCC-4EEF-A3BA-0593B7930A60}
+	EndGlobalSection
+EndGlobal
