@@ -104,5 +104,22 @@ namespace SpinovKirillKT_42_22.Services.DepartmentServices
 
             return true;
         }
+
+        public async Task<List<string>> DepartmentByDiscipline(string disciplineName)
+        {
+            if (string.IsNullOrEmpty(disciplineName))
+            {
+                throw new ArgumentException("Имя дисциплины обязательно для заполнения.", nameof(disciplineName));
+            }
+
+            return await (from department in _context.Departments
+                          join teacher in _context.Teachers on department.Id equals teacher.DepartmentId
+                          join load in _context.Loads on teacher.Id equals load.TeacherId
+                          join discipline in _context.Disciplines on load.DisciplineId equals discipline.Id
+                          where discipline.Name.Contains(disciplineName)
+                          select department.Name)
+                         .Distinct()
+                         .ToListAsync();
+        }
     }
 }

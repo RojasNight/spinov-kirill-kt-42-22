@@ -89,5 +89,13 @@ namespace SpinovKirillKT_42_22.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("DepartmentByDiscipline")]
+        public async Task<IActionResult> Zashita1([FromQuery] string disciplineName)
+        {
+
+            var departments = await _departmentService.DepartmentByDiscipline(disciplineName);
+            return Ok(departments);
+        }
     }
 }
