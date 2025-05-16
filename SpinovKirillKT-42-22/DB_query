@@ -1,0 +1,54 @@
+-- Заполнение таблицы AcademicDegrees (без указания Id)
+INSERT INTO AcademicDegrees (Name) VALUES
+('Кандидат наук'),
+('Доктор наук'),
+('Доцент'),
+('Профессор'),
+('Старший научный сотрудник');
+
+-- Заполнение таблицы Posts (без указания Id)
+INSERT INTO Posts (Name) VALUES
+('Ассистент'),
+('Старший преподаватель'),
+('Доцент'),
+('Профессор'),
+('Заведующий кафедрой');
+
+-- Заполнение таблицы Departments (без указания Id)
+INSERT INTO Departments (Name, FoundedDate, HeadId) VALUES
+('Кафедра КТ', '2010-05-01', NULL),
+('Кафедра ИВТ', '2005-02-01', NULL),
+('Кафедра радиоэлектроники', '1994-09-01', NULL),
+('Кафедра ХБ', '1997-08-01', NULL),
+('Кафедра психологии', '2000-07-01', NULL);
+
+-- Заполнение таблицы Teachers (без указания Id)
+INSERT INTO Teachers (FirstName, LastName, DegreeId, PostId, DepartmentId) VALUES
+('Иван', 'Петров', 1, 1, 1),
+('Мария', 'Иванова', 2, 2, 2),
+('Алексей', 'Сидоров', 3, 3, 3),
+('Елена', 'Кузнецова', 4, 4, 4),
+('Дмитрий', 'Васильев', 5, 5, 5);
+
+-- Обновление Departments с указанием заведующих кафедрами
+UPDATE Departments SET HeadId = 1 WHERE Id = 1;
+UPDATE Departments SET HeadId = 2 WHERE Id = 2;
+UPDATE Departments SET HeadId = 3 WHERE Id = 3;
+UPDATE Departments SET HeadId = 4 WHERE Id = 4;
+UPDATE Departments SET HeadId = 5 WHERE Id = 5;
+
+-- Заполнение таблицы Disciplines (без указания Id)
+INSERT INTO Disciplines (Name) VALUES
+('Графический дизайн'),
+('Программная инженерия'),
+('Радиосвязи'),
+('Органическая химия'),
+('Психология');
+
+-- Заполнение таблицы Loads (без указания Id)
+INSERT INTO Loads (TeacherId, DisciplineId, Hours) VALUES
+(1, 1, 120),
+(2, 2, 90),
+(3, 3, 150),
+(4, 4, 80),
+(5, 5, 100);
