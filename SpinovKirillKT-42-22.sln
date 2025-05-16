@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpinovKirillKT-42-22", "SpinovKirillKT-42-22\SpinovKirillKT-42-22.csproj", "{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpinovKirillKt-42-22.Tests", "SpinovKirillKt-42-22.Tests\SpinovKirillKt-42-22.Tests.csproj", "{AAA47CDD-9C19-405B-920B-CF3ED32AE5D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CAE8852-4C0D-4F62-9CBA-0AFC45B8CDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA47CDD-9C19-405B-920B-CF3ED32AE5D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA47CDD-9C19-405B-920B-CF3ED32AE5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA47CDD-9C19-405B-920B-CF3ED32AE5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA47CDD-9C19-405B-920B-CF3ED32AE5D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
