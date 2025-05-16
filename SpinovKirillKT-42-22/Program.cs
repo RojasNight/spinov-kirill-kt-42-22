@@ -2,10 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using SpinovKirillKT_42_22.Database;
+using SpinovKirillKT_42_22.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
 try 
 {
     builder.Logging.ClearProviders();
@@ -20,6 +22,8 @@ try
 
     builder.Services.AddDbContext<TeacherLoadContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    builder.Services.AddServices();
 
     var app = builder.Build();
 
