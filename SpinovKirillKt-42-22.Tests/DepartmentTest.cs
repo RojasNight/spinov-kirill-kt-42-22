@@ -126,18 +126,18 @@ namespace SpinovKirillKt_42_22.Tests
         }
 
         [Theory]
-        [InlineData("Математика", true)]                      // Корректное
-        [InlineData("Высшая математика", true)]               // Корректное (с пробелом внутри)
-        [InlineData("Физика (теория поля)", true)]            // Корректное (со скобками)
-        [InlineData("Физика-лаборатория", true)]              // Дефис разрешён, если после него нет цифр
-        [InlineData("История 20 века", true)]                 // Цифры разрешены, если не после дефиса
-        [InlineData("123Математика", false)]                  // Цифры в начале — запрещено
-        [InlineData("Математика!", false)]                    // Спецсимволы — запрещено
-        [InlineData(" Математика", false)]                    // Пробел в начале — запрещено
-        [InlineData("Математика ", false)]                    // Пробел в конце — запрещено
-        [InlineData("МАТЕМАТИКА", false)]                     // Верхний регистр — запрещено
-        [InlineData("фИЗИКА", false)]                         // Смешанный регистр (кроме первой буквы) — запрещено
-        [InlineData("", false)]                               // Пустая строка — запрещено
+        [InlineData("Математика", true)]
+        [InlineData("Высшая математика", true)]
+        [InlineData("Физика (теория поля)", true)]
+        [InlineData("Физика-лаборатория", true)]
+        [InlineData("История 20 века", true)]
+        [InlineData("123Математика", false)]
+        [InlineData("Математика!", false)]
+        [InlineData(" Математика", false)]
+        [InlineData("Математика ", false)]
+        [InlineData("МАТЕМАТИКА", false)]
+        [InlineData("фИЗИКА", false)]
+        [InlineData("", false)]
         public void DisciplineName_Validation_Test(string name, bool expected)
         {
             var regex = new Regex(@"^[А-ЯЁ][а-яё0-9.,()\-]*(?<!-\d+)(?: [а-яё0-9.,()\-]+)*[а-яё0-9.,()\-]$");
