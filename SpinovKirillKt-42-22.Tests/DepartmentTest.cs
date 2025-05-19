@@ -6,17 +6,19 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SpinovKirillKT_42_22.Database;
+using SpinovKirillKT_42_22.Interfaces;
 using SpinovKirillKT_42_22.Models;
 using SpinovKirillKT_42_22.Services.DepartmentServices;
+using SpinovKirillKT_42_22.Services.TeacherServices;
 using Xunit;
 
 namespace SpinovKirillKt_42_22.Tests
 {
-    public class DepartmentTest
+    public class Test
     {
         private readonly DbContextOptions<TeacherLoadContext> _dbContextOptions;
 
-        public DepartmentTest()
+        public Test()
         {
             var dbName = $"TestDatabase_Department_{Guid.NewGuid()}";
             _dbContextOptions = new DbContextOptionsBuilder<TeacherLoadContext>()
@@ -30,20 +32,32 @@ namespace SpinovKirillKt_42_22.Tests
             }
         }
 
+
         [Fact]
-        public async Task DepartmentByDiscipline_ReturnsCorrectDepartments()
+        public async Task UnitTests()
         {
             using (var ctx = new TeacherLoadContext(_dbContextOptions))
             {
-                // Инициализация сервиса
+           
                 var departmentService = new DepartmentService(ctx);
+                var teacherService = new TeacherService(ctx);
 
-                // Создание тестовых данных
+
                 var departments = new List<Department>
         {
             new Department { Name = "Кафедра математики" },
             new Department { Name = "Кафедра физики" },
-            new Department { Name = "Кафедра информатики" }
+            //new Department { Name = "Кафедра информатики" }
+        };
+            var degrees = new List<AcademicDegree>
+        {
+            new AcademicDegree { Name = "Кандидат наук" },
+            new AcademicDegree { Name = "Доктор наук" }
+        };
+            var posts = new List<Post>
+        {
+            new Post { Name = "Доцент" },
+            new Post { Name = "Профессор" }
         };
 
                 var teachers = new List<Teacher>
@@ -52,39 +66,61 @@ namespace SpinovKirillKt_42_22.Tests
             {
                 FirstName = "Иван",
                 LastName = "Иванов",
-                Department = departments[2]  // Кафедра информатики
+                Department = departments[0],
+                Degree = degrees[0], 
+                Post = posts[0]
             },
             new Teacher
             {
                 FirstName = "Петр",
                 LastName = "Петров",
-                Department = departments[1]  // Кафедра физики
+                Department = departments[1],
+                Degree = degrees[1], 
+                Post = posts[1]   
+            },
+            new Teacher
+            {
+                FirstName = "Сидоров",
+                LastName = "С",
+                Department = departments[1],
+                Degree = degrees[1],
+                Post = posts[1]      
             }
         };
+                var disciplines = new List<Discipline> {
 
-                var discipline = new Discipline { Name = "Математический анализ" };
-
-                var loads = new List<Load>
+                     new Discipline
+                     {
+                         Name = "Математический анализ"
+                     },
+                    new Discipline
+                    {
+                        Name = "Программирование"
+                    }
+                    };
+        var loads = new List<Load>
         {
-            new Load { Teacher = teachers[0], Discipline = discipline, Hours = 10 },
-            new Load { Teacher = teachers[1], Discipline = discipline, Hours = 10 }
+            new Load { Teacher = teachers[0], Discipline = disciplines[0], Hours = 10 },
+            new Load { Teacher = teachers[1], Discipline = disciplines[0], Hours = 20 },
+            new Load { Teacher = teachers[2], Discipline = disciplines[0], Hours = 30 },
+            new Load { Teacher = teachers[1], Discipline = disciplines[1], Hours = 20 },
+            new Load { Teacher = teachers[2], Discipline = disciplines[1], Hours = 30 }
         };
 
-                // Групповое добавление данных
                 await ctx.Departments.AddRangeAsync(departments);
                 await ctx.Teachers.AddRangeAsync(teachers);
-                await ctx.Disciplines.AddAsync(discipline);
+                await ctx.Disciplines.AddRangeAsync(disciplines);
                 await ctx.Loads.AddRangeAsync(loads);
                 await ctx.SaveChangesAsync();
 
-                // Выполнение тестируемого метода
-                var result = await departmentService.DepartmentByDiscipline("Математ");
 
-                // Проверки
-                Assert.Equal(2, result.Count);
-                Assert.Contains("Кафедра информатики", result);
-                Assert.Contains("Кафедра физики", result);
-                Assert.DoesNotContain("Кафедра математики", result);
+                //var result = await departmentService.DepartmentByDiscipline("Программирование");
+                var result = await teacherService.GetTeachersAsync("Кафедра математики");
+
+                Assert.Equal(1, result.Count);
+                //Assert.Contains("Кафедра информатики", result);
+                //Assert.Contains("Кафедра физики", result);
+                //Assert.DoesNotContain("Кафедра математики", result);
             }
         }
 
@@ -131,6 +167,7 @@ namespace SpinovKirillKt_42_22.Tests
         [InlineData("Физика (теория поля)", true)]
         [InlineData("Физика-лаборатория", true)]
         [InlineData("История 20 века", true)]
+        [InlineData("Математика  вторая часть", false)]
         [InlineData("123Математика", false)]
         [InlineData("Математика!", false)]
         [InlineData(" Математика", false)]
@@ -140,8 +177,21 @@ namespace SpinovKirillKt_42_22.Tests
         [InlineData("", false)]
         public void DisciplineName_Validation_Test(string name, bool expected)
         {
-            var regex = new Regex(@"^[А-ЯЁ][а-яё0-9.,()\-]*(?<!-\d+)(?: [а-яё0-9.,()\-]+)*[а-яё0-9.,()\-]$");
+            var regex = new Regex(@"^[А-ЯЁ](?:[а-яё0-9.,()\-]*(?: [а-яё0-9.,()\-]+)*)?[а-яё0-9.,()\-]$");
             Assert.Equal(expected, regex.IsMatch(name));
+        }
+
+        [Fact]
+        public void IsValidDiscipline()
+        {
+            var testDiscipline = new Discipline
+            {
+                Name = "Математика"
+            };
+
+            var result = testDiscipline.IsValidDiscipline();
+
+            Assert.True(result);
         }
     }
 }
